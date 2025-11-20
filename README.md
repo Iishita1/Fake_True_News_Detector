@@ -11,13 +11,23 @@ A robust NLP + ML pipeline to classify news articles as Fake or True using a hyb
 ---
 
 ## 📂 Project Structure
-News_Detector/ ├─ Datasets/ │ ├─ Fake.csv │ └─ True.csv ├─ FakeNewsPredictor.ipynb ├─ fake_news_dataset.csv ├─ README.md └─ .gitattributes
 
+The project directory is organized as follows:
 
-- [Datasets/Fake.csv](cci:7://file:///c:/Users/nopei/Downloads/News_Detector/Datasets/Fake.csv:0:0-0:0), [Datasets/True.csv](cci:7://file:///c:/Users/nopei/Downloads/News_Detector/Datasets/True.csv:0:0-0:0): Core labeled datasets.
-- [FakeNewsPredictor.ipynb](cci:7://file:///c:/Users/nopei/Downloads/News_Detector/FakeNewsPredictor.ipynb:0:0-0:0): End-to-end workflow (EDA → features → model → evaluation → interactive predictor).
-- [fake_news_dataset.csv](cci:7://file:///c:/Users/nopei/Downloads/News_Detector/fake_news_dataset.csv:0:0-0:0): Additional dataset copy (not used by the notebook as-is).
+```text
+News_Detector/
+├─ Datasets/
+│  ├─ Fake.csv
+│  └─ True.csv
+├─ FakeNewsPredictor.ipynb
+├─ fake_news_dataset.csv
+├─ README.md
+└─ .gitattributes
+```
 
+* **`Datasets/Fake.csv`**, **`Datasets/True.csv`**: Core labeled datasets.
+* **`FakeNewsPredictor.ipynb`**: End-to-end workflow (**EDA → features → model → evaluation → interactive predictor**).
+  
 ---
 
 ## 🚀 Features
@@ -63,97 +73,117 @@ python -m venv .venv
 # Option B: conda
 conda create -n news-detector python=3.10 -y
 conda activate news-detector
-2) Install dependencies
-bash
+```
+### 2) Install dependencies
+```bash
 pip install -U pip
 pip install pandas numpy requests beautifulsoup4 matplotlib seaborn scikit-learn nltk textblob
-3) NLTK & TextBlob data (first run may auto-download)
+```
+### 3) NLTK & TextBlob data (first run may auto-download)
 The notebook already attempts:
 
-punkt
-averaged_perceptron_tagger
-brown
-If needed:
-
-python
+```python
 import nltk
 nltk.download('punkt')
 nltk.download('averaged_perceptron_tagger')
 nltk.download('brown')
-▶️ Usage
-Option A: Run the notebook
-Open 
-FakeNewsPredictor.ipynb
- in Jupyter/VS Code.
-Run cells top-to-bottom.
-The notebook will:
-Load datasets (by default via URLs; it also works with local CSVs)
-Perform EDA
-Train the pipeline
-Evaluate the model
-Launch an interactive predictor
-Option B: Interactive predictor (from notebook)
-At the end, use:
 ```
 
+  ## ▶️ Usage
+
+### Option A: Run the notebook
+
+1.  Open **`FakeNewsPredictor.ipynb`** in Jupyter or VS Code.
+2.  Run cells top-to-bottom.
+3.  The notebook will:
+    * Load datasets (by default via URLs; it also works with local CSVs)
+    * Perform **EDA** (Exploratory Data Analysis)
+    * Train the pipeline
+    * Evaluate the model
+    * Launch an interactive predictor
+
+### Option B: Interactive predictor (from notebook)
+
+At the end of the notebook, use the prompt shown:
+
+```text
 📰 --- FAKE NEWS PREDICTOR (ENHANCED) --- 📰
 Paste the BODY text of the article below.
 Paste text or type exit to end.
-Output includes prediction band and confidence with brief reasoning.
-📁 Data
-Provided:
-Datasets/Fake.csv
-Datasets/True.csv
-Columns used:
-text (main body), title (fallback), and label (0 = True, 1 = Fake, assigned in notebook)
-Preprocessing:
-Fill missing text/title with empty strings
-Shuffle data for unbiased splits
-Boilerplate/source removal to reduce leakage
-If using alternative datasets, ensure similar schema with a text field.
+```
+  
+  Output includes **prediction band** and **confidence** with brief reasoning.
 
-📈 EDA Highlights
-Class distribution visualization
-Article length (word count) histograms by class
-Observations on stylistic patterns (e.g., capitalization, punctuation), sentiment tendencies
-🧩 Extending the Project
-Swap classifier (e.g., Linear SVM, LogisticRegression with different C/penalty)
-Hyperparameter search with GridSearchCV
-Add features:
-Readability indices (Flesch–Kincaid)
-POS tag distributions
-Named entity ratios
-Robustness checks:
-Cross-domain validation
-Train/dev/test split with time-awareness
-Deployment:
-Export pipeline via joblib
-Wrap with a minimal API (FastAPI) or a UI (Streamlit/Gradio)
-⚠️ Notes & Limitations
-High accuracy can reflect dataset characteristics and potential residual biases.
-Real-world performance depends on domain shift, writing styles, and adversarial content.
-Use as a decision aid, not a sole arbiter of truth.
-📦 Requirements
-Python 3.9–3.11
-Packages:
-pandas, numpy, requests, beautifulsoup4
-matplotlib, seaborn
-scikit-learn
-nltk, textblob
-🙌 Acknowledgments
-Dataset sources derived from public fake/true news corpora.
-Open-source libraries by the Python & ML community.
-📝 License
-Add your chosen license (e.g., MIT) here.
+---
 
+## 📁 Data
 
-# Recommended Actions
-- **Confirm**: May I overwrite the corrupted [README.md](cci:7://file:///c:/Users/nopei/Downloads/News_Detector/README.md:0:0-0:0) with the content above?
-- Optional: Want me to add a `requirements.txt` and a `Quickstart` notebook cell to load local CSVs by default?
+**Provided:**
 
-# Status
-- **[t1] Scan repository**: Completed
-- **[t2] Parse notebook**: Completed
-- **[t3] Draft README**: Completed
+* `Datasets/Fake.csv`
+* `Datasets/True.csv`
 
-- **[t4] Write README.md**: Pending your confirmation
+**Columns used:**
+
+* **`text`** (main body), **`title`** (fallback), and **`label`** (0 = True, 1 = Fake; assigned in notebook)
+
+**Preprocessing:**
+
+* Fill missing `text`/`title` with empty strings
+* Shuffle data for unbiased splits
+* Boilerplate/source removal to reduce leakage
+
+**Note:** If using alternative datasets, ensure a similar schema with a **`text`** field.
+
+---
+
+## 📈 EDA Highlights
+
+* **Class distribution visualization** (True vs Fake classes)
+* **Article length** (word count) histograms by class
+* Observations on **stylistic patterns** (e.g., capitalization, punctuation), **sentiment tendencies**
+
+---
+
+## 🧩 Extending the Project
+
+Here are several ways to extend and improve the project:
+
+* **Swap Classifier:** Experiment with different models (e.g., Linear SVM, Logistic Regression with different $C$/penalty).
+* **Hyperparameter Search:** Use `GridSearchCV` or `RandomizedSearchCV` to optimize current model parameters.
+* **Add Features:**
+    * **Readability indices** (e.g., Flesch–Kincaid)
+    * **POS tag distributions** (Part-of-Speech tags)
+    * **Named entity ratios**
+* **Robustness Checks:**
+    * **Cross-domain validation**
+    * **Train/dev/test split with time-awareness** (critical for time-series data)
+* **Deployment:**
+    * Export the trained pipeline via **`joblib`**.
+    * Wrap with a minimal API (**FastAPI**) or a UI (**Streamlit/Gradio**).
+
+---
+
+## ⚠️ Notes & Limitations
+
+* High accuracy can reflect dataset characteristics and **potential residual biases**.
+* Real-world performance depends on **domain shift**, writing styles, and **adversarial content**.
+* Use as a **decision aid**, not a sole arbiter of truth.
+
+---
+
+## 📦 Requirements
+
+* **Python** 3.9–3.11
+* **Packages:**
+    * `pandas`, `numpy`, `requests`, `beautifulsoup4`
+    * `matplotlib`, `seaborn`
+    * `scikit-learn`
+    * `nltk`, `textblob`
+
+---
+
+## 🙌 Acknowledgments
+
+* Dataset sources derived from public fake/true news corpora.
+* Open-source libraries by the Python & ML community.
